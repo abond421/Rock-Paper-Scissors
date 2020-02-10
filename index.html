@@ -7,18 +7,40 @@
     </head>
 <body>
 <script>
-    function computerPlay()
-    {
-        var options = ["Rock", "Paper", "Scissors"];
-        var selected = options[Math.floor(Math.random() * 3)]
+    function computerPlay() {
+        const options = ["Rock", "Paper", "Scissors"];
+        const selected = options[Math.floor(Math.random() * 3)]
         
         console.log(selected)
 
         return selected;
     }
 
-    computerPlay()
+    function round(playSelection, computerSelection) {
+        const player = format(playSelection)
+        const computer = computerSelection
 
+
+        if (player == computer) {
+            console.log("DRAW! " + player + " does not beat " + computer +"!")
+        } 
+        else {
+            if (player == "Rock" && computer != "Paper") {
+            console.log("You WIN! Rock beats " + computer + "!")
+            } 
+            else {
+            console.log("You LOSE! " + player + " does not beat " + computer + "!")
+            }
+        }
+    }
+
+    function format(string) {
+        const form = string.charAt(0).toUpperCase() + string.substring(1).toLowerCase()
+        return form;
+    }
+
+
+    round(prompt(), computerPlay())
 
 </script>
 
