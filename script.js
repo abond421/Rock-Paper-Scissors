@@ -1,49 +1,41 @@
 const options = ["Rock", "Paper", "Scissors"];
 
-function computerPlay() {
-    const selected = options[Math.floor(Math.random() * 3)]
+const payoffMatrix = [
+    [0, -1, 1],
+    [1, 0, -1],
+    [-1, 1, 0]
+];
     
-    console.log(selected)
 
+function computerPlay() {
+    const selected = Math.floor(Math.random() * 3);
     return selected;
 }
 
-function round(player, computerSelection) {
-    const computer = computerSelection
+function round(player) {
+    const computer = computerPlay();
 
-    if (player == computer) {
-        console.log("DRAW! " + player + " does not beat " + computer +"!")
+    if (payoffMatrix[player][computer] == 1) {
+        console.log("You WIN! "+ options[player] + " beats " + options[computer] + "!")
+        incrementScore('player-score');
     } 
-    else {
-        if (player == "Rock" && computer != "Paper") {
-            console.log("You WIN! "+ player + " beats " + computer + "!")
-            incrementScore('player-score');
-        } 
-        else if (player == "Paper" && computer != "Scissors" ){
-            console.log("You WIN! "+ player + " beats " + computer + "!") 
-            incrementScore('player-score');
-        }
-        else if (player == "Scissors" && computer != "Rock") {
-            console.log("You WIN! "+ player + " beats " + computer + "!")
-            incrementScore('player-score');
-        }
-        else {
-        console.log("You LOSE! " + player + " does not beat " + computer + "!")
+    else if (payoffMatrix[player][computer] == -1) {
+            console.log("You LOSE! " + options[player] + " does not beat " + options[computer] + "!")
             incrementScore('comp-score');
+        } 
+    else {
+        console.log("DRAW! " + options[player] + " does not beat " + options[computer] +"!")
         }
     }
-}
+
 
 function play(type) {
     const roundLength = 5;
     var count = 0;
 
-    /*while (count != roundLength) {
+    for (count; count <= 5; count++) {
         round(type, computerPlay())
-        count++
-    }*/
-    round(type, computerPlay())
-    count++
+    }
     /*if (playerWin == compWin) {
         console.log("It's a DRAW!")
     } 
@@ -55,9 +47,9 @@ function play(type) {
 }
 
 function incrementScore(winner) {
-    var playerScore = document.getElementById(winner).innerHTML;
-    playerScore++;
-    document.getElementById(winner).innerHTML = playerScore;
+    var scoreInc = document.getElementById(winner).innerHTML;
+    scoreInc++;
+    document.getElementById(winner).innerHTML = scoreInc;
 }
 
 
