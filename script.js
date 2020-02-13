@@ -42,8 +42,8 @@ function play(type) {
   for (count; count <= roundLength; count++) {
     round(type, computerPlay());
   }
-  resetScore('player-score');
-  resetScore('comp-score');
+  resetScore("player-score");
+  resetScore("comp-score");
   /*if (playerWin == compWin) {
           console.log("It's a DRAW!")
       } 
@@ -60,8 +60,8 @@ function incrementScore(winner) {
   document.getElementById(winner).innerHTML = scoreInc;
 }
 
-function resetScore(...args) {
-    document.getElementById(...args).innerHTML = "0"; 
+function resetScore(elementID) {
+  document.getElementById(elementID).innerHTML = "0";
 }
 
 //play()
