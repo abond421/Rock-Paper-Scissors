@@ -15,12 +15,14 @@ function round(player) {
   const computer = computerPlay();
 
   if (payoffMatrix[player][computer] == 1) {
-    console.log(
+    updateRound(
+      "round-info",
       "You WIN! " + options[player] + " beats " + options[computer] + "!"
     );
     incrementScore("player-score");
   } else if (payoffMatrix[player][computer] == -1) {
-    console.log(
+    updateRound(
+      "round-info",
       "You LOSE! " +
         options[player] +
         " does not beat " +
@@ -29,29 +31,31 @@ function round(player) {
     );
     incrementScore("comp-score");
   } else {
-    console.log(
+    updateRound(
+      "round-info",
       "DRAW! " + options[player] + " does not beat " + options[computer] + "!"
     );
   }
 }
 
 function play(type) {
-  const roundLength = 5;
-  var count = 0;
+  const winningCondition = 5;
 
-  for (count; count <= roundLength; count++) {
-    round(type, computerPlay());
+  incrementScore("round-num");
+
+  if (document.getElementById("player-score").innerHTML >= winningCondition) {
+    updateRound("player-score", "0");
+    updateRound("comp-score", "0");
+    updateRound("round-num", "1");
+    updateRound("winner", "PLAYER WINS!");
   }
-  resetScore("player-score");
-  resetScore("comp-score");
-  /*if (playerWin == compWin) {
-          console.log("It's a DRAW!")
-      } 
-      else if (playerWin > compWin) {
-          console.log("Player WINS!")
-      } else {
-          console.log("Computer WINS!")
-      }*/
+  if (document.getElementById("comp-score").innerHTML >= winningCondition) {
+    updateRound("player-score", "0");
+    updateRound("comp-score", "0");
+    updateRound("round-num", "1");
+    updateRound("winner", "COMPUTER WINS!");
+  }
+  round(type);
 }
 
 function incrementScore(winner) {
@@ -60,8 +64,8 @@ function incrementScore(winner) {
   document.getElementById(winner).innerHTML = scoreInc;
 }
 
-function resetScore(elementID) {
-  document.getElementById(elementID).innerHTML = "0";
+function updateRound(elementID, message) {
+  var update = document.getElementById(elementID).innerHTML;
+  update = message;
+  document.getElementById(elementID).innerHTML = update;
 }
-
-//play()
